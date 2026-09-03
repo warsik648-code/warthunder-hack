@@ -1,0 +1,26 @@
+---
+description: Keyword ownership map — one primary URL per search intent
+alwaysApply: true
+---
+
+# Keyword ownership
+
+Avoid cannibalization. Each major intent has one primary URL. Source of truth: `src/data/keywordOwnership.ts`.
+
+| URL | Primary keyword | Notes |
+|---|---|---|
+| `/` | War Thunder cheats | Homepage. May support War Thunder hacks. |
+| `/war-thunder-cheats/` | War Thunder cheats | Long-form. Must be distinct from `/` — not a duplicate homepage. |
+| `/war-thunder-hacks/` | War Thunder hacks | Do not make this the homepage’s primary H1. |
+| `/features/esp/` | War Thunder ESP | |
+| `/features/aimbot/` | War Thunder aimbot | |
+| `/features/radar/` | War Thunder radar | |
+| `/features/wallhack/` | War Thunder wallhack | |
+
+## Rules
+
+- Before creating any new URL, define its search intent in `keywordOwnership.ts`
+- Do not ship a page whose title/H1 compete with another owner for the same primary query
+- Internal links: send ESP/aimbot/radar/wallhack queries to their feature URLs once those pages exist; until then, homepage section anchors are fine
+- Homepage may mention secondary terms naturally; it must not be written as four feature landing pages
+- `/war-thunder-cheats/` is not live until it has a unique angle vs `/`

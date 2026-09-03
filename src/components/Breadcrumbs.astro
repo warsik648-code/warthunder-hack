@@ -1,0 +1,62 @@
+---
+import type { BreadcrumbEntry } from '../data/seo';
+
+interface Props {
+  items: BreadcrumbEntry[];
+}
+
+const { items } = Astro.props;
+---
+
+{
+  items.length > 0 && (
+    <nav class="crumbs" aria-label="Breadcrumb">
+      <ol>
+        {items.map((item, index) => {
+          const isLast = index === items.length - 1;
+          return (
+            <li>
+              {isLast ? (
+                <span aria-current="page">{item.name}</span>
+              ) : (
+                <a href={item.path}>{item.name}</a>
+              )}
+            </li>
+          );
+        })}
+      </ol>
+    </nav>
+  )
+}
+
+<style>
+  .crumbs {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+  }
+
+  ol {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    list-style: none;
+  }
+
+  li:not(:last-child)::after {
+    content: '/';
+    margin-left: var(--space-2);
+    color: var(--color-text-subtle);
+  }
+
+  a {
+    color: var(--color-text-muted);
+  }
+
+  a:hover {
+    color: var(--color-accent-hover);
+  }
+
+  [aria-current='page'] {
+    color: var(--color-text);
+  }
+</style>

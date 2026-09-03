@@ -1,0 +1,131 @@
+---
+import { headerNav, liveItems } from '../data/navigation';
+import CtaLink from './CtaLink.astro';
+import SiteBrand from './SiteBrand.astro';
+
+const links = liveItems(headerNav);
+---
+
+<header class="site-header">
+  <div class="container site-header__inner">
+    <SiteBrand />
+
+    <input id="nav-toggle" class="nav-toggle" type="checkbox" />
+    <label class="nav-toggle-label" for="nav-toggle">
+      <span class="nav-toggle-label__text">Menu</span>
+    </label>
+
+    <div class="site-header__panel">
+      <nav class="site-nav" aria-label="Primary">
+        <ul>
+          {
+            links.map((item) => (
+              <li>
+                <a href={item.href}>{item.label}</a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+      <CtaLink />
+    </div>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    height: var(--header-height);
+    border-bottom: 1px solid var(--color-border);
+    background: var(--color-bg);
+  }
+
+  .site-header__inner {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    height: var(--header-height);
+  }
+
+  .nav-toggle {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .nav-toggle-label {
+    margin-left: auto;
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.5rem;
+    padding: 0 var(--space-3);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    color: var(--color-text-muted);
+    font-size: var(--text-xs);
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+
+  .site-header__panel {
+    display: none;
+  }
+
+  .site-nav ul {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    list-style: none;
+  }
+
+  .site-nav a {
+    color: var(--color-text-muted);
+    font-size: var(--text-sm);
+  }
+
+  .site-nav a:hover {
+    color: var(--color-text);
+  }
+
+  .nav-toggle:checked ~ .site-header__panel {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-4);
+    position: absolute;
+    top: var(--header-height);
+    left: 0;
+    right: 0;
+    padding: var(--space-4) var(--space-5) var(--space-5);
+    background: var(--color-bg-raised);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  @media (min-width: 48rem) {
+    .nav-toggle-label {
+      display: none;
+    }
+
+    .site-header__panel {
+      display: flex;
+      align-items: center;
+      gap: var(--space-5);
+      margin-left: auto;
+    }
+
+    .site-nav ul {
+      flex-direction: row;
+      gap: var(--space-5);
+    }
+
+    .nav-toggle:checked ~ .site-header__panel {
+      position: static;
+      padding: 0;
+      background: transparent;
+      border: 0;
+    }
+  }
+</style>

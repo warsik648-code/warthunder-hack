@@ -1,0 +1,42 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+export const prerender = true;
+---
+
+<BaseLayout
+  seo={{
+    title: 'Page not found',
+    description: 'This page does not exist.',
+    noindex: true,
+  }}
+>
+  <section class="missing">
+    <div class="container">
+      <p class="eyebrow">404</p>
+      <h1>Page not found</h1>
+      <p>The requested URL is not part of this site yet.</p>
+      <a href="/">Back to home</a>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .missing {
+    padding: var(--space-8) 0;
+  }
+
+  .missing h1 {
+    margin-top: var(--space-3);
+    font-size: var(--text-3xl);
+  }
+
+  .missing p {
+    margin: var(--space-4) 0;
+    color: var(--color-text-muted);
+  }
+
+  .missing a {
+    color: var(--color-accent);
+  }
+</style>

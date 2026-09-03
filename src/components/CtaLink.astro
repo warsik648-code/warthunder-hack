@@ -1,0 +1,62 @@
+---
+import { PURCHASE_URL, cta } from '../data/cta';
+
+interface Props {
+  variant?: 'primary' | 'secondary';
+  href?: string;
+  label?: string;
+}
+
+const { variant = 'primary', href, label = cta.primaryLabel } = Astro.props;
+
+const isInPageOrInternal = Boolean(href && !href.startsWith('http'));
+const destination = isInPageOrInternal && href ? href : PURCHASE_URL;
+const isExternal = destination === PURCHASE_URL;
+---
+
+<a
+  class:list={['cta', `cta--${variant}`]}
+  href={destination}
+  rel={isExternal ? 'noopener noreferrer' : undefined}
+  target={isExternal ? '_blank' : undefined}
+>
+  {label}
+</a>
+
+<style>
+  .cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 2.5rem;
+    padding: 0 var(--space-4);
+    border-radius: var(--radius-sm);
+    font-size: var(--text-sm);
+    font-weight: var(--weight-semibold);
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+    transition: color var(--duration) var(--ease), background-color var(--duration) var(--ease),
+      border-color var(--duration) var(--ease);
+  }
+
+  .cta--primary {
+    background: var(--color-accent);
+    color: var(--color-bg);
+  }
+
+  .cta--primary:hover {
+    background: var(--color-accent-hover);
+    color: var(--color-bg);
+  }
+
+  .cta--secondary {
+    background: transparent;
+    color: var(--color-text);
+    border: 1px solid var(--color-border-strong);
+  }
+
+  .cta--secondary:hover {
+    color: var(--color-accent-hover);
+    border-color: var(--color-accent);
+  }
+</style>

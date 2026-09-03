@@ -1,0 +1,44 @@
+---
+import '../styles/global.css';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import SeoHead from '../components/SeoHead.astro';
+import type { BreadcrumbEntry, PageSeoInput } from '../data/seo';
+
+interface Props {
+  seo?: PageSeoInput;
+  breadcrumbs?: BreadcrumbEntry[];
+  showBreadcrumbs?: boolean;
+}
+
+const { seo, breadcrumbs = [], showBreadcrumbs = breadcrumbs.length > 0 } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <SeoHead seo={seo} breadcrumbs={breadcrumbs} />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <Header />
+    <main id="main" class="site-main">
+      {
+        showBreadcrumbs && (
+          <div class="container crumbs-wrap">
+            <Breadcrumbs items={breadcrumbs} />
+          </div>
+        )
+      }
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>
+
+<style>
+  .crumbs-wrap {
+    padding-top: var(--space-5);
+  }
+</style>

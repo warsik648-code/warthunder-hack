@@ -1,0 +1,35 @@
+---
+description: Global SEO architecture for the War Thunder cheats/hacks site
+alwaysApply: true
+---
+
+# War Thunder Hacks SEO (all phases)
+
+This project exists to rank for the War Thunder cheat/hack cluster. Treat SEO as architecture in every change — never a late add-on.
+
+## Targets
+
+- Primary: `War Thunder cheats`
+- Secondary: `War Thunder hacks`, `War Thunder cheat`, `War Thunder ESP`, `War Thunder aimbot`, `War Thunder radar`, `War Thunder wallhack`
+- Goal: compete for top organic positions via intent match, original content, and technical quality — not stuffing or doorway pages
+
+## Every page / every change
+
+- One H1; unique title and meta description; canonical via `SeoHead` / `src/data/seo.ts`
+- Original copy only. Never copy competitors (including warthundercheats.org)
+- Match search intent: commercial pages convert; supporting pages inform (guides, FAQ, features)
+- Cover the topic in depth on dedicated URLs when we build them; do not ship thin placeholder pages
+- Internal links with descriptive anchors (e.g. “War Thunder ESP”, not “click here”)
+- Use planned routes from `src/data/navigation.ts`; do not invent competing slugs
+- Structured data through the existing SEO helpers (WebPage, FAQPage, SoftwareApplication as relevant)
+- Fast, static-first, almost no client JS; preserve Core Web Vitals
+- Mobile-first, semantic HTML, accessible headings, descriptive image ALT
+- Commercial CTAs only via `CtaLink.astro` / `PURCHASE_URL` in `src/data/cta.ts`
+- Navigation and in-page links (`#features`, `/faq/`, feature URLs) must never point at checkout
+
+## Content quality
+
+- Write for someone searching the keyword: what it is, features, how it works, compatibility, FAQ, clear next step
+- Use natural variants (cheat/cheats/hacks) — do not repeat the exact phrase in every sentence
+- Prefer one strong page per intent over many near-duplicate pages
+- Keyword ownership: `src/data/keywordOwnership.ts` and `.cursor/rules/keyword-ownership.mdc`

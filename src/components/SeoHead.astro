@@ -1,0 +1,45 @@
+---
+import { site } from '../data/site';
+import { resolveSeo, type BreadcrumbEntry, type PageSeoInput } from '../data/seo';
+
+interface Props {
+  seo?: PageSeoInput;
+  breadcrumbs?: BreadcrumbEntry[];
+}
+
+const { seo, breadcrumbs = [] } = Astro.props;
+const resolved = resolveSeo(seo, Astro.url, breadcrumbs);
+---
+
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>{resolved.title}</title>
+<meta name="description" content={resolved.description} />
+<meta name="robots" content={resolved.robots} />
+<link rel="canonical" href={resolved.canonical} />
+<link rel="sitemap" type="application/xml" href="/sitemap-index.xml" />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="apple-touch-icon" href="/apple-touch-icon.svg" />
+<meta name="theme-color" content={site.themeColor} />
+<meta name="generator" content={Astro.generator} />
+
+<meta property="og:site_name" content={site.name} />
+<meta property="og:locale" content={site.locale} />
+<meta property="og:type" content={resolved.ogType} />
+<meta property="og:title" content={resolved.title} />
+<meta property="og:description" content={resolved.description} />
+<meta property="og:url" content={resolved.canonical} />
+<meta property="og:image" content={resolved.ogImage} />
+<meta property="og:image:alt" content={site.brand.markAlt} />
+
+<meta name="twitter:card" content={site.twitter.card} />
+{site.twitter.handle && <meta name="twitter:site" content={site.twitter.handle} />}
+<meta name="twitter:title" content={resolved.title} />
+<meta name="twitter:description" content={resolved.description} />
+<meta name="twitter:image" content={resolved.ogImage} />
+
+{
+  resolved.jsonLd.map((node) => (
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(node)} />
+  ))
+}

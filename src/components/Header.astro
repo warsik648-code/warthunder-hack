@@ -1,9 +1,14 @@
 ---
-import { headerNav, liveItems } from '../data/navigation';
+import { headerNav, headerNavHe, liveItems } from '../data/navigation';
+import { localeFromPath } from '../i18n/locale';
+import { ui } from '../i18n/ui';
 import CtaLink from './CtaLink.astro';
+import LanguageSwitcher from './LanguageSwitcher.astro';
 import SiteBrand from './SiteBrand.astro';
 
-const links = liveItems(headerNav);
+const locale = localeFromPath(Astro.url.pathname);
+const copy = ui[locale];
+const links = liveItems(locale === 'he' ? headerNavHe : headerNav);
 ---
 
 <header class="site-header">
@@ -12,11 +17,11 @@ const links = liveItems(headerNav);
 
     <input id="nav-toggle" class="nav-toggle" type="checkbox" />
     <label class="nav-toggle-label" for="nav-toggle">
-      <span class="nav-toggle-label__text">Menu</span>
+      <span class="nav-toggle-label__text">{copy.menu}</span>
     </label>
 
     <div class="site-header__panel">
-      <nav class="site-nav" aria-label="Primary">
+      <nav class="site-nav" aria-label={copy.primaryNav}>
         <ul>
           {
             links.map((item) => (
@@ -27,6 +32,7 @@ const links = liveItems(headerNav);
           }
         </ul>
       </nav>
+      <LanguageSwitcher />
       <CtaLink />
     </div>
   </div>
@@ -56,7 +62,7 @@ const links = liveItems(headerNav);
   }
 
   .nav-toggle-label {
-    margin-left: auto;
+    margin-inline-start: auto;
     display: inline-flex;
     align-items: center;
     min-height: 2.5rem;
@@ -97,8 +103,7 @@ const links = liveItems(headerNav);
     gap: var(--space-4);
     position: absolute;
     top: var(--header-height);
-    left: 0;
-    right: 0;
+    inset-inline: 0;
     padding: var(--space-4) var(--space-5) var(--space-5);
     background: var(--color-bg-raised);
     border-bottom: 1px solid var(--color-border);
@@ -112,13 +117,13 @@ const links = liveItems(headerNav);
     .site-header__panel {
       display: flex;
       align-items: center;
-      gap: var(--space-5);
-      margin-left: auto;
+      gap: var(--space-4);
+      margin-inline-start: auto;
     }
 
     .site-nav ul {
       flex-direction: row;
-      gap: var(--space-5);
+      gap: var(--space-4);
     }
 
     .nav-toggle:checked ~ .site-header__panel {

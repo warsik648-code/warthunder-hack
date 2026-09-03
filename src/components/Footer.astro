@@ -1,13 +1,19 @@
 ---
 import { site } from '../data/site';
-import { footerNav, liveItems } from '../data/navigation';
+import { footerNav, footerNavHe, liveItems } from '../data/navigation';
+import { localeFromPath } from '../i18n/locale';
+import { ui } from '../i18n/ui';
 import SiteBrand from './SiteBrand.astro';
 
+const locale = localeFromPath(Astro.url.pathname);
+const copy = ui[locale];
+const nav = locale === 'he' ? footerNavHe : footerNav;
+
 const groups = [
-  { title: 'Product', items: liveItems(footerNav.product) },
-  { title: 'Features', items: liveItems(footerNav.features) },
-  { title: 'Resources', items: liveItems(footerNav.resources) },
-  { title: 'Legal', items: liveItems(footerNav.legal) },
+  { title: copy.footerGroups.product, items: liveItems(nav.product) },
+  { title: copy.footerGroups.features, items: liveItems(nav.features) },
+  { title: copy.footerGroups.resources, items: liveItems(nav.resources) },
+  { title: copy.footerGroups.legal, items: liveItems(nav.legal) },
 ].filter((group) => group.items.length > 0);
 
 const year = new Date().getFullYear();
@@ -17,7 +23,7 @@ const year = new Date().getFullYear();
   <div class="container site-footer__inner">
     <div class="site-footer__brand">
       <SiteBrand compact />
-      <p>{site.tagline}</p>
+      <p>{copy.tagline}</p>
     </div>
 
     {
@@ -41,7 +47,7 @@ const year = new Date().getFullYear();
   </div>
 
   <div class="container site-footer__meta">
-    <p>&copy; {year} {site.legalName}. All rights reserved.</p>
+    <p>&copy; {year} {site.legalName}. {copy.footerCopyright}</p>
   </div>
 </footer>
 

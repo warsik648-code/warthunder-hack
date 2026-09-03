@@ -1,0 +1,264 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import CtaLink from '../../../components/CtaLink.astro';
+import UpdatedAsOf from '../../../components/UpdatedAsOf.astro';
+import {
+  currentStatusHe,
+  statusChromeHe,
+  statusNotesHe,
+  statusPageHe,
+  statusRulesHe,
+  statusSeoHe,
+  timezoneExamplesHe,
+  timezoneExplainerHe,
+} from '../../../data/he/status';
+import { routes } from '../../../data/navigation';
+import { site } from '../../../data/site';
+
+export const prerender = true;
+
+const breadcrumbs = [
+  { name: 'דף הבית', path: routes.heHome },
+  { name: 'סטטוס זיהוי', path: routes.heUndetected },
+];
+---
+
+<BaseLayout
+  seo={{
+    title: statusSeoHe.title,
+    description: statusSeoHe.description,
+    canonicalPath: routes.heUndetected,
+  }}
+  breadcrumbs={breadcrumbs}
+>
+  <section class="band" id="status" aria-labelledby="status-heading">
+    <div class="container status-hero">
+      <p class="eyebrow">{statusChromeHe.liveEyebrow}</p>
+      <h1 id="status-heading">{statusPageHe.h1}</h1>
+      <p class="lede">{statusPageHe.lede}</p>
+
+      <div class="status-board surface" role="status">
+        <p class:list={['status-pill', `status-pill--${currentStatusHe.state}`]}>
+          <span class="status-pill__dot" aria-hidden="true"></span>
+          <span>{statusChromeHe.statusPrefix} {currentStatusHe.label}</span>
+        </p>
+        <UpdatedAsOf class="status-stamp" locale="he" />
+        <p class="status-play">{currentStatusHe.playLine}</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="band band--raised" id="notes" aria-labelledby="notes-heading">
+    <div class="container split">
+      <div>
+        <p class="eyebrow">{statusChromeHe.notesEyebrow}</p>
+        <h2 id="notes-heading">{statusChromeHe.notesHeading}</h2>
+      </div>
+      <div class="note-stack">
+        {
+          statusNotesHe.map((note) => (
+            <article class="surface card">
+              <h3>{note.title}</h3>
+              <p>{note.body}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="band" id="rules" aria-labelledby="rules-heading">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">{statusChromeHe.rulesEyebrow}</p>
+        <h2 id="rules-heading">{statusChromeHe.rulesHeading}</h2>
+      </div>
+      <ol class="rule-list">
+        {
+          statusRulesHe.map((rule) => (
+            <li class="surface card">{rule}</li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <section class="band band--raised" id="timezone" aria-labelledby="timezone-heading">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">{statusChromeHe.timezoneEyebrow}</p>
+        <h2 id="timezone-heading">{timezoneExplainerHe.heading}</h2>
+        {
+          timezoneExplainerHe.body.map((paragraph) => (
+            <p class="section-copy">{paragraph}</p>
+          ))
+        }
+      </div>
+
+      <div class="tz-grid">
+        <article class="surface card">
+          <p class="tz-flag">{statusChromeHe.yourDevice}</p>
+          <h3>{statusChromeHe.yourTimezone}</h3>
+          <UpdatedAsOf locale="he" />
+          <p>{statusChromeHe.yourStamp}</p>
+        </article>
+        {
+          timezoneExamplesHe.map((example) => (
+            <article class="surface card">
+              <p class="tz-flag">
+                <span aria-hidden="true">{example.flag}</span>
+                {example.region}
+              </p>
+              <h3>{example.region}</h3>
+              <UpdatedAsOf locale="he" timeZone={example.timeZone} />
+              <p>{example.note}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="band close" aria-labelledby="status-close-heading">
+    <div class="container surface close-card">
+      <p class="eyebrow">{site.product.claims.join(' · ')}</p>
+      <h2 id="status-close-heading">{statusChromeHe.closeHeading}</h2>
+      <p>{statusChromeHe.closeCopy}</p>
+      <CtaLink />
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .status-hero h1 {
+    margin-top: var(--space-3);
+    font-size: var(--text-3xl);
+    max-width: 18ch;
+  }
+
+  .lede,
+  .section-copy,
+  .status-play,
+  .card p {
+    color: var(--color-text-muted);
+  }
+
+  .lede {
+    margin-top: var(--space-4);
+    max-width: 40rem;
+    font-size: var(--text-lg);
+  }
+
+  .status-board {
+    display: grid;
+    gap: var(--space-4);
+    margin-top: var(--space-6);
+    padding: var(--space-5);
+    max-width: 36rem;
+  }
+
+  .status-stamp {
+    font-size: var(--text-xl);
+  }
+
+  .status-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    width: fit-content;
+    margin: 0;
+    padding: var(--space-1) var(--space-3);
+    border-radius: var(--radius-full);
+    font-size: var(--text-sm);
+    font-weight: var(--weight-semibold);
+  }
+
+  .status-pill__dot {
+    width: 0.55rem;
+    height: 0.55rem;
+    border-radius: var(--radius-full);
+    background: currentColor;
+  }
+
+  .status-pill--green {
+    color: #8ee0b0;
+    background: rgba(61, 191, 122, 0.12);
+    border: 1px solid rgba(61, 191, 122, 0.35);
+  }
+
+  .status-pill--rebuilding {
+    color: var(--color-accent);
+    background: rgba(196, 178, 140, 0.1);
+    border: 1px solid var(--color-border-strong);
+  }
+
+  .section-head {
+    max-width: 42rem;
+    margin-bottom: var(--space-6);
+  }
+
+  .section-head h2,
+  .split h2,
+  .close-card h2 {
+    margin-top: var(--space-3);
+    font-size: var(--text-2xl);
+  }
+
+  .section-copy {
+    margin-top: var(--space-3);
+  }
+
+  .split {
+    display: grid;
+    gap: var(--space-5);
+  }
+
+  .note-stack,
+  .rule-list,
+  .tz-grid {
+    display: grid;
+    gap: var(--space-4);
+    list-style: none;
+  }
+
+  .card h3,
+  .tz-grid h3 {
+    margin-bottom: var(--space-3);
+    font-size: var(--text-lg);
+  }
+
+  .tz-flag {
+    margin-bottom: var(--space-2);
+    color: var(--color-accent);
+    font-size: var(--text-xs);
+    font-weight: var(--weight-semibold);
+  }
+
+  .close {
+    padding-bottom: var(--space-8);
+    background: var(--color-bg-lower);
+  }
+
+  .close-card {
+    padding: var(--space-6);
+  }
+
+  .close-card p {
+    margin: var(--space-4) 0 var(--space-5);
+    max-width: 36rem;
+    color: var(--color-text-muted);
+  }
+
+  @media (min-width: 48rem) {
+    .split {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
+      gap: var(--space-7);
+      align-items: start;
+    }
+
+    .rule-list,
+    .tz-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+</style>

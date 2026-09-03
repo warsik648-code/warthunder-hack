@@ -5,6 +5,8 @@ import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
 import SeoHead from '../components/SeoHead.astro';
 import type { BreadcrumbEntry, PageSeoInput } from '../data/seo';
+import { localeConfig, localeFromPath } from '../i18n/locale';
+import { ui } from '../i18n/ui';
 
 interface Props {
   seo?: PageSeoInput;
@@ -13,15 +15,17 @@ interface Props {
 }
 
 const { seo, breadcrumbs = [], showBreadcrumbs = breadcrumbs.length > 0 } = Astro.props;
+const locale = localeFromPath(Astro.url.pathname);
+const { htmlLang, dir } = localeConfig[locale];
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={htmlLang} dir={dir}>
   <head>
     <SeoHead seo={seo} breadcrumbs={breadcrumbs} />
   </head>
   <body>
-    <a class="skip-link" href="#main">Skip to content</a>
+    <a class="skip-link" href="#main">{ui[locale].skipToContent}</a>
     <Header />
     <main id="main" class="site-main">
       {

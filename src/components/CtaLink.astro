@@ -1,5 +1,6 @@
 ---
 import { PURCHASE_URL, cta } from '../data/cta';
+import { localeFromPath } from '../i18n/locale';
 
 interface Props {
   variant?: 'primary' | 'secondary';
@@ -7,7 +8,9 @@ interface Props {
   label?: string;
 }
 
-const { variant = 'primary', href, label = cta.primaryLabel } = Astro.props;
+const locale = localeFromPath(Astro.url.pathname);
+const defaultLabel = locale === 'he' ? cta.hePrimaryLabel : cta.primaryLabel;
+const { variant = 'primary', href, label = defaultLabel } = Astro.props;
 
 const isInPageOrInternal = Boolean(href && !href.startsWith('http'));
 const destination = isInPageOrInternal && href ? href : PURCHASE_URL;

@@ -1,0 +1,52 @@
+---
+import { localeFromPath, switcherHref } from '../i18n/locale';
+
+const locale = localeFromPath(Astro.url.pathname);
+const enHref = switcherHref(Astro.url.pathname, 'en');
+const heHref = switcherHref(Astro.url.pathname, 'he');
+---
+
+<nav class="lang-switch" dir="ltr" aria-label="Language">
+  <a
+    href={enHref}
+    hreflang="en"
+    lang="en"
+    aria-current={locale === 'en' ? 'page' : undefined}>English</a
+  >
+  <span class="lang-switch__sep" aria-hidden="true">|</span>
+  <a
+    href={heHref}
+    hreflang="he-IL"
+    lang="he"
+    aria-current={locale === 'he' ? 'page' : undefined}>עברית</a
+  >
+</nav>
+
+<style>
+  .lang-switch {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: var(--text-xs);
+    font-weight: var(--weight-medium);
+    color: var(--color-text-muted);
+    white-space: nowrap;
+  }
+
+  .lang-switch a {
+    color: var(--color-text-muted);
+  }
+
+  .lang-switch a:hover {
+    color: var(--color-accent-hover);
+  }
+
+  .lang-switch a[aria-current='page'] {
+    color: var(--color-text);
+    font-weight: var(--weight-semibold);
+  }
+
+  .lang-switch__sep {
+    color: var(--color-text-subtle);
+  }
+</style>

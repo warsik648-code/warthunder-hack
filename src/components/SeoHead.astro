@@ -17,6 +17,11 @@ const resolved = resolveSeo(seo, Astro.url, breadcrumbs);
 <meta name="description" content={resolved.description} />
 <meta name="robots" content={resolved.robots} />
 <link rel="canonical" href={resolved.canonical} />
+{
+  resolved.hreflang.map((link) => (
+    <link rel="alternate" hreflang={link.hreflang} href={link.href} />
+  ))
+}
 <link rel="sitemap" type="application/xml" href="/sitemap-index.xml" />
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 <link rel="apple-touch-icon" href="/apple-touch-icon.svg" />
@@ -24,7 +29,8 @@ const resolved = resolveSeo(seo, Astro.url, breadcrumbs);
 <meta name="generator" content={Astro.generator} />
 
 <meta property="og:site_name" content={site.name} />
-<meta property="og:locale" content={site.locale} />
+<meta property="og:locale" content={resolved.ogLocale} />
+<meta property="og:locale:alternate" content={resolved.ogLocaleAlternate} />
 <meta property="og:type" content={resolved.ogType} />
 <meta property="og:title" content={resolved.title} />
 <meta property="og:description" content={resolved.description} />

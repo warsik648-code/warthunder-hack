@@ -139,7 +139,7 @@ input {
 
 .skip-link {
   position: absolute;
-  left: var(--space-4);
+  inset-inline-start: var(--space-4);
   top: -3rem;
   z-index: 100;
   padding: var(--space-2) var(--space-3);
@@ -189,6 +189,35 @@ input {
 
 .card {
   padding: var(--space-5);
+}
+
+[dir='rtl'] {
+  font-family: "Segoe UI", "Arial Hebrew", Arial, "Helvetica Neue", system-ui, sans-serif;
+}
+
+[dir='rtl'] h1,
+[dir='rtl'] h2,
+[dir='rtl'] h3,
+[dir='rtl'] h4,
+[dir='rtl'] p,
+[dir='rtl'] li,
+[dir='rtl'] td,
+[dir='rtl'] th,
+[dir='rtl'] summary {
+  letter-spacing: 0;
+  unicode-bidi: isolate;
+}
+
+[dir='rtl'] .eyebrow,
+[dir='rtl'] .nav-toggle-label,
+[dir='rtl'] .site-footer__heading {
+  letter-spacing: 0.02em;
+  text-transform: none;
+}
+
+[dir='rtl'] .cta {
+  letter-spacing: 0;
+  unicode-bidi: isolate;
 }
 
 @media (prefers-reduced-motion: reduce) {

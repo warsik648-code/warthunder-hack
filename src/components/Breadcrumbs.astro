@@ -1,16 +1,19 @@
 ---
 import type { BreadcrumbEntry } from '../data/seo';
+import { localeFromPath } from '../i18n/locale';
+import { ui } from '../i18n/ui';
 
 interface Props {
   items: BreadcrumbEntry[];
 }
 
 const { items } = Astro.props;
+const locale = localeFromPath(Astro.url.pathname);
 ---
 
 {
   items.length > 0 && (
-    <nav class="crumbs" aria-label="Breadcrumb">
+    <nav class="crumbs" aria-label={ui[locale].breadcrumb}>
       <ol>
         {items.map((item, index) => {
           const isLast = index === items.length - 1;
@@ -44,7 +47,7 @@ const { items } = Astro.props;
 
   li:not(:last-child)::after {
     content: '/';
-    margin-left: var(--space-2);
+    margin-inline-start: var(--space-2);
     color: var(--color-text-subtle);
   }
 

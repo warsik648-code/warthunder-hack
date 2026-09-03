@@ -7,6 +7,8 @@ export const PURCHASE_URL =
 
 export const cta = {
   purchaseUrl: PURCHASE_URL,
-  primaryLabel: 'Get Access',
+  primaryLabel: 'Buy Now',
   secondaryLabel: 'View Plans',
+  hePrimaryLabel: 'קנו עכשיו',
+  heSecondaryLabel: "צפו בפיצ'רים",
 } as const;

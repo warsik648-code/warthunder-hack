@@ -1,14 +1,19 @@
 ---
 import { site } from '../data/site';
+import { localeFromPath, localizePath } from '../i18n/locale';
+import { ui } from '../i18n/ui';
 
 interface Props {
   compact?: boolean;
 }
 
 const { compact = false } = Astro.props;
+const locale = localeFromPath(Astro.url.pathname);
+const homeHref = localizePath('/', locale);
+const homeAria = `${site.name} ${ui[locale].homeAria}`;
 ---
 
-<a class:list={['brand', compact && 'brand--compact']} href="/" aria-label={`${site.name} home`}>
+<a class:list={['brand', compact && 'brand--compact']} href={homeHref} aria-label={homeAria}>
   <img src="/favicon.svg" alt="" width="28" height="28" />
   <span class="brand__name">{site.name}</span>
 </a>
@@ -38,6 +43,8 @@ const { compact = false } = Astro.props;
     font-weight: var(--weight-semibold);
     letter-spacing: var(--tracking-wide);
     text-transform: uppercase;
+    direction: ltr;
+    unicode-bidi: isolate;
   }
 
   .brand--compact .brand__name {

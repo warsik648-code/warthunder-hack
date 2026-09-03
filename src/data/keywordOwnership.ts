@@ -58,6 +58,27 @@ export const keywordOwnership = [
     intent: 'Feature-intent page for wallhack / occlusion.',
     status: 'planned',
   },
+  {
+    path: routes.undetected,
+    primary: 'War Thunder undetected status',
+    intent:
+      'Operational status notes: current build, patch rebuilds, and whether it is safe to queue. Not a second commercial hub for War Thunder cheats.',
+    status: 'live',
+  },
+  {
+    path: routes.heHome,
+    primary: "צ'יטים ל-War Thunder",
+    intent:
+      'Hebrew commercial homepage for users in Israel. English `/` remains the default and x-default version.',
+    status: 'live',
+  },
+  {
+    path: routes.heUndetected,
+    primary: 'סטטוס זיהוי',
+    intent:
+      'Hebrew operational status page. Pair of `/undetected/`; does not replace the English status URL.',
+    status: 'live',
+  },
 ] as const satisfies readonly KeywordOwner[];
 
 export function ownerForPath(path: string): KeywordOwner | undefined {

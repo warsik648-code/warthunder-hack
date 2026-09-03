@@ -11,7 +11,7 @@ export const homeHero = {
     'Stream-proof on Discord live, TikTok Live, Kick, Twitch, and YouTube Live.',
   ],
   labels: ['Instant Access', 'Regular Updates', 'Support Available'],
-  primaryCta: 'Get War Thunder Cheats',
+  primaryCta: 'Buy Now',
   secondaryCta: 'View Features',
 } as const;
 

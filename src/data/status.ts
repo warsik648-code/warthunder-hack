@@ -69,7 +69,7 @@ export const timezoneExamples = [
 export const timezoneExplainer = {
   heading: 'How the date is shown',
   body: [
-    'The line “Updated as of …” is generated in your browser from your device timezone. It is not a single office clock, and it is not frozen at build time.',
+    'The line “Local date: …” is generated in your browser from your device timezone. It is not a single office clock, and it is not frozen at build time.',
     'If the calendar date has already changed in Qatar or Israel but it is still the previous day in the United Kingdom, each visitor sees the date that is correct where they are. Someone in the European Union sees the date for the timezone on their own device.',
     'The stamp refreshes automatically at local midnight, so the date advances every day without a site deploy.',
   ],

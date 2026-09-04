@@ -1,6 +1,5 @@
 ---
 import { localeFromPath, type Locale } from '../i18n/locale';
-import { updatedAsOfLabel } from '../lib/formatUpdatedAsOf';
 
 interface Props {
   timeZone?: string;
@@ -13,7 +12,6 @@ const {
   class: className,
   locale = localeFromPath(Astro.url.pathname),
 } = Astro.props;
-const fallback = updatedAsOfLabel(new Date(), timeZone ?? 'UTC', locale);
 ---
 
 <p
@@ -22,12 +20,13 @@ const fallback = updatedAsOfLabel(new Date(), timeZone ?? 'UTC', locale);
   data-timezone={timeZone}
   data-locale={locale}
 >
-  <time>{fallback}</time>
+  <time datetime=""></time>
 </p>
 
 <style>
   .updated-as-of {
     margin: 0;
+    min-height: 1.5em;
     color: var(--color-text);
     font-weight: var(--weight-semibold);
   }

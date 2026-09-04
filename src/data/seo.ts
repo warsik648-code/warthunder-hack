@@ -68,7 +68,6 @@ export function organizationJsonLd(): JsonLd {
     name: site.legalName,
     url: absoluteUrl('/'),
     logo: absoluteUrl('/favicon.svg'),
-    email: site.contact.email,
   };
 }
 

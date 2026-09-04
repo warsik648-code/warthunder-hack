@@ -1,3 +1,5 @@
+import { en } from './he/en';
+
 export type RouteStatus = 'live' | 'planned';
 
 export type NavItem = {
@@ -84,7 +86,7 @@ export const footerNav = {
 
 export const footerNavHe = {
   product: [
-    { label: "צ'יטים ל-War Thunder", href: routes.heHome, status: 'live' },
+    { label: `צ'יטים ל-${en('War Thunder')}`, href: routes.heHome, status: 'live' },
   ] satisfies NavItem[],
   features: [
     { label: 'ESP', href: `${routes.heHome}#esp`, status: 'live' },

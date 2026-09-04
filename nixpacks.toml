@@ -1,0 +1,20 @@
+# Dokploy + Nixpacks: build the static Astro site, then serve dist/.
+# Traefik must proxy to 0.0.0.0:$PORT (set Dokploy Port to 3000).
+# Leave Dokploy "Publish Directory" empty — that path uses nginx on port 80 instead.
+
+providers = ["node"]
+
+[variables]
+NIXPACKS_NODE_VERSION = "22"
+NPM_CONFIG_PRODUCTION = "false"
+
+[phases.install]
+dependsOn = ["setup"]
+cmds = ["npm ci --include=dev"]
+
+[phases.build]
+dependsOn = ["install"]
+cmds = ["npm run build"]
+
+[start]
+cmd = "node server.mjs"

@@ -1,0 +1,14 @@
+services:
+  warthunderhack:
+    build: .
+    image: warthunderhack:latest
+    container_name: warthunderhack
+    restart: unless-stopped
+    environment:
+      NODE_ENV: production
+      PORT: "3000"
+      CANONICAL_HOST: warthunderhack.com
+    expose:
+      - "3000"
+    ports:
+      - "3000:3000"

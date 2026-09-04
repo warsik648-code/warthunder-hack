@@ -41,7 +41,6 @@ const breadcrumbs = [
           <span class="status-pill__dot" aria-hidden="true"></span>
           <span>Status: {currentStatus.label}</span>
         </p>
-        <UpdatedAsOf class="status-stamp" />
         <p class="status-play">{currentStatus.playLine}</p>
       </div>
     </div>
@@ -157,10 +156,6 @@ const breadcrumbs = [
     margin-top: var(--space-6);
     padding: var(--space-5);
     max-width: 36rem;
-  }
-
-  .status-stamp {
-    font-size: var(--text-xl);
   }
 
   .status-pill {

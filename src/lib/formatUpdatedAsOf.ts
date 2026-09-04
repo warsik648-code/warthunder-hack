@@ -2,8 +2,8 @@ import type { Locale } from '../i18n/locale';
 
 /**
  * Visitor-facing status stamp.
- * English: "Updated as of Month D, YYYY"
- * Hebrew: "עודכן בתאריך D בMONTH YYYY" via he-IL
+ * English: "Local date: Month D, YYYY"
+ * Hebrew: "תאריך מקומי: D בMONTH YYYY" via he-IL
  * Pass a timeZone to format for a specific region; omit it to use the runtime default
  * (the visitor’s local timezone in the browser).
  */
@@ -47,7 +47,7 @@ export function updatedAsOfLabel(
   locale: Locale = 'en',
 ): string {
   const formatted = formatStampDate(date, timeZone, locale);
-  return locale === 'he' ? `עודכן בתאריך ${formatted}` : `Updated as of ${formatted}`;
+  return locale === 'he' ? `תאריך מקומי: ${formatted}` : `Local date: ${formatted}`;
 }
 
 export function millisecondsUntilNextLocalMidnight(from = new Date()): number {

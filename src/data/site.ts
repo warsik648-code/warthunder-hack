@@ -15,7 +15,7 @@ export const site = {
   description:
     'War Thunder Hacks is an undetected, unbanned, and safe War Thunder cheat suite with ESP, aimbot, radar, and wallhack for PC and consoles.',
   themeColor: '#0d0a14',
-  ogImage: '/og-default.svg',
+  ogImage: '/og-default.jpg',
   twitter: {
     handle: '',
     card: 'summary_large_image' as const,
@@ -28,9 +28,6 @@ export const site = {
   product: {
     claims: ['Undetected', 'Unbanned', 'Safe'] as const,
     platforms: ['Windows PC', 'PlayStation', 'Xbox'] as const,
-  },
-  contact: {
-    email: 'support@example.com',
   },
 } as const;
 

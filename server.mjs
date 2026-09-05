@@ -30,10 +30,6 @@ const MIME = {
   '.map': 'application/json; charset=utf-8',
 };
 
-const PATH_REDIRECTS = {
-  '/sitemap.xml': '/sitemap-index.xml',
-};
-
 function stat(file) {
   try {
     return fs.statSync(file);
@@ -136,12 +132,6 @@ const server = http.createServer((req, res) => {
 
     if (hostnameOf(req) === `www.${CANONICAL_HOST}`) {
       res.writeHead(301, { Location: `https://${CANONICAL_HOST}${slashed}${search}` });
-      res.end();
-      return;
-    }
-
-    if (PATH_REDIRECTS[urlPath]) {
-      res.writeHead(301, { Location: PATH_REDIRECTS[urlPath] + search });
       res.end();
       return;
     }

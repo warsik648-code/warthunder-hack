@@ -2,13 +2,11 @@
 import { localeFromPath, type Locale } from '../i18n/locale';
 
 interface Props {
-  timeZone?: string;
   class?: string;
   locale?: Locale;
 }
 
 const {
-  timeZone,
   class: className,
   locale = localeFromPath(Astro.url.pathname),
 } = Astro.props;
@@ -17,7 +15,6 @@ const {
 <p
   class:list={['updated-as-of', className]}
   data-updated-as-of
-  data-timezone={timeZone}
   data-locale={locale}
 >
   <time datetime=""></time>
@@ -27,8 +24,9 @@ const {
   .updated-as-of {
     margin: 0;
     min-height: 1.5em;
-    color: var(--color-text);
-    font-weight: var(--weight-semibold);
+    color: var(--color-text-subtle);
+    font-size: var(--text-sm);
+    font-weight: inherit;
   }
 </style>
 

@@ -57,11 +57,12 @@ function sendFile(res, status, file) {
   const ext = path.extname(file).toLowerCase();
   const type = MIME[ext] || 'application/octet-stream';
   const immutable = file.includes(`${path.sep}_astro${path.sep}`);
+  const isDocument = ext === '.html' || ext === '.xml' || ext === '.txt';
   res.writeHead(status, {
     'Content-Type': type,
     'X-Content-Type-Options': 'nosniff',
     'Cache-Control':
-      ext === '.html' ? 'no-cache' : immutable ? 'public, max-age=31536000, immutable' : 'public, max-age=86400',
+      isDocument ? 'no-cache' : immutable ? 'public, max-age=31536000, immutable' : 'public, max-age=86400',
   });
   const stream = fs.createReadStream(file);
   stream.on('error', () => {

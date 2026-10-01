@@ -1,4 +1,12 @@
-import { localeConfig, localeFromPath, hasLocalePair, englishPath, hebrewPath } from '../i18n/locale';
+import {
+  localeConfig,
+  localeFromPath,
+  hasLocalePair,
+  englishPath,
+  hebrewPath,
+  localizePath,
+  type Locale,
+} from '../i18n/locale';
 import { PURCHASE_URL } from './cta';
 import { site } from './site';
 
@@ -31,7 +39,7 @@ export type ResolvedSeo = {
   ogType: 'website' | 'article';
   ogImage: string;
   ogLocale: string;
-  ogLocaleAlternate: string;
+  ogLocaleAlternate: readonly string[];
   robots: string;
   jsonLd: JsonLd[];
   hreflang: HreflangLink[];
@@ -159,8 +167,16 @@ export function hreflangLinks(pathname: string): HreflangLink[] {
   return [
     { hreflang: 'en', href: absoluteUrl(en) },
     { hreflang: 'he-IL', href: absoluteUrl(he) },
+    { hreflang: localeConfig.pl.hreflang, href: absoluteUrl(localizePath(en, 'pl')) },
+    { hreflang: localeConfig.de.hreflang, href: absoluteUrl(localizePath(en, 'de')) },
     { hreflang: 'x-default', href: absoluteUrl(en) },
   ];
+}
+
+function ogLocaleAlternates(locale: Locale): readonly string[] {
+  const all: readonly Locale[] = ['en', 'he', 'pl', 'de'];
+  const order = locale === 'en' ? (['he', 'pl', 'de'] as const) : all.filter((item) => item !== locale);
+  return order.map((key) => localeConfig[key].ogLocale);
 }
 
 export function resolveSeo(
@@ -173,7 +189,7 @@ export function resolveSeo(
   const title = buildTitle(input?.title);
   const description = input?.description ?? site.description;
   const locale = localeFromPath(path);
-  const inLanguage = locale === 'he' ? 'he' : site.language;
+  const inLanguage = locale === 'en' ? site.language : locale;
   const graph: JsonLd[] = [
     {
       '@context': 'https://schema.org',
@@ -192,9 +208,6 @@ export function resolveSeo(
       : [input.jsonLd]
     : [];
 
-  const alternateOg =
-    locale === 'he' ? localeConfig.en.ogLocale : localeConfig.he.ogLocale;
-
   return {
     title,
     description,
@@ -202,7 +215,7 @@ export function resolveSeo(
     ogType: input?.ogType ?? 'website',
     ogImage: absoluteUrl(input?.ogImage ?? site.ogImage),
     ogLocale: localeConfig[locale].ogLocale,
-    ogLocaleAlternate: alternateOg,
+    ogLocaleAlternate: ogLocaleAlternates(locale),
     robots: input?.noindex ? 'noindex, nofollow' : 'index, follow',
     jsonLd: [...graph, ...extra],
     hreflang: input?.noindex ? [] : hreflangLinks(path),

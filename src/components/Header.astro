@@ -1,5 +1,5 @@
 ---
-import { headerNav, headerNavHe, liveItems } from '../data/navigation';
+import { headerNavFor, liveItems } from '../data/navigation';
 import { localeFromPath } from '../i18n/locale';
 import { ui } from '../i18n/ui';
 import CtaLink from './CtaLink.astro';
@@ -8,7 +8,7 @@ import SiteBrand from './SiteBrand.astro';
 
 const locale = localeFromPath(Astro.url.pathname);
 const copy = ui[locale];
-const links = liveItems(locale === 'he' ? headerNavHe : headerNav);
+const links = liveItems(headerNavFor(locale));
 ---
 
 <header class="site-header">

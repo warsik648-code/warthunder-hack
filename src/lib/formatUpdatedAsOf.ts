@@ -1,19 +1,15 @@
-import type { Locale } from '../i18n/locale';
+import { localeConfig, type Locale } from '../i18n/locale';
 
 /**
  * Visitor-facing page stamp. Not a detection-test date.
  * English: "Updated as of Month D, YYYY"
  * Hebrew: "עודכן בתאריך D בMONTH YYYY"
+ * Polish: "Zaktualizowano D MONTH YYYY"
+ * German: "Aktualisiert am D. MONTH YYYY"
  */
-const EN_DATE_OPTIONS: Intl.DateTimeFormatOptions = {
+const DATE_OPTIONS: Intl.DateTimeFormatOptions = {
   month: 'long',
   day: 'numeric',
-  year: 'numeric',
-};
-
-const HE_DATE_OPTIONS: Intl.DateTimeFormatOptions = {
-  day: 'numeric',
-  month: 'long',
   year: 'numeric',
 };
 
@@ -22,10 +18,8 @@ export function formatStampDate(
   timeZone?: string,
   locale: Locale = 'en',
 ): string {
-  const tag = locale === 'he' ? 'he-IL' : 'en-US';
-  const options = locale === 'he' ? HE_DATE_OPTIONS : EN_DATE_OPTIONS;
-  return new Intl.DateTimeFormat(tag, {
-    ...options,
+  return new Intl.DateTimeFormat(localeConfig[locale].dateLocale, {
+    ...DATE_OPTIONS,
     ...(timeZone ? { timeZone } : {}),
   }).format(date);
 }
@@ -45,7 +39,10 @@ export function updatedAsOfLabel(
   locale: Locale = 'en',
 ): string {
   const formatted = formatStampDate(date, timeZone, locale);
-  return locale === 'he' ? `עודכן בתאריך ${formatted}` : `Updated as of ${formatted}`;
+  if (locale === 'he') return `עודכן בתאריך ${formatted}`;
+  if (locale === 'pl') return `Zaktualizowano ${formatted}`;
+  if (locale === 'de') return `Aktualisiert am ${formatted}`;
+  return `Updated as of ${formatted}`;
 }
 
 export function millisecondsUntilNextLocalMidnight(from = new Date()): number {

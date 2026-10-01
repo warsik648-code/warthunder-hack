@@ -1,13 +1,19 @@
+import type { Locale } from '../i18n/locale';
 import {
   isoCalendarDate,
   millisecondsUntilNextLocalMidnight,
   updatedAsOfLabel,
 } from '../lib/formatUpdatedAsOf';
 
+function stampLocaleOf(locale?: string): Locale {
+  if (locale === 'he' || locale === 'pl' || locale === 'de') return locale;
+  return 'en';
+}
+
 function paintStamp(root: Element, timeZone?: string, locale?: string): void {
   const now = new Date();
   const time = root.querySelector('time');
-  const stampLocale = locale === 'he' ? 'he' : 'en';
+  const stampLocale = stampLocaleOf(locale);
   const label = updatedAsOfLabel(now, timeZone, stampLocale);
 
   root.setAttribute('data-stamp', label);

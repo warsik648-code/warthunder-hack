@@ -9,7 +9,13 @@ interface Props {
 }
 
 const locale = localeFromPath(Astro.url.pathname);
-const defaultLabel = locale === 'he' ? cta.hePrimaryLabel : cta.primaryLabel;
+const primaryLabels = {
+  en: cta.primaryLabel,
+  he: cta.hePrimaryLabel,
+  pl: cta.plPrimaryLabel,
+  de: cta.dePrimaryLabel,
+} as const;
+const defaultLabel = primaryLabels[locale];
 const { variant = 'primary', href, label = defaultLabel } = Astro.props;
 
 const isInPageOrInternal = Boolean(href && !href.startsWith('http'));

@@ -3,7 +3,16 @@ import { absoluteUrl, hreflangLinks } from '../data/seo';
 
 export const prerender = true;
 
-const INDEXABLE_PATHS = ['/', '/undetected/', '/he/', '/he/undetected/'] as const;
+const INDEXABLE_PATHS = [
+  '/',
+  '/undetected/',
+  '/he/',
+  '/he/undetected/',
+  '/pl/',
+  '/pl/undetected/',
+  '/de/',
+  '/de/undetected/',
+] as const;
 
 function escapeXml(value: string): string {
   return value

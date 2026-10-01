@@ -30,7 +30,11 @@ const resolved = resolveSeo(seo, Astro.url, breadcrumbs);
 
 <meta property="og:site_name" content={site.name} />
 <meta property="og:locale" content={resolved.ogLocale} />
-<meta property="og:locale:alternate" content={resolved.ogLocaleAlternate} />
+{
+  resolved.ogLocaleAlternate.map((value) => (
+    <meta property="og:locale:alternate" content={value} />
+  ))
+}
 <meta property="og:type" content={resolved.ogType} />
 <meta property="og:title" content={resolved.title} />
 <meta property="og:description" content={resolved.description} />

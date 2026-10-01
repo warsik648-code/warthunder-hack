@@ -79,6 +79,34 @@ export const keywordOwnership = [
       'Hebrew operational status page. Pair of `/undetected/`; does not replace the English status URL.',
     status: 'live',
   },
+  {
+    path: routes.plHome,
+    primary: 'cheaty do War Thunder',
+    intent:
+      'Polish commercial homepage. English `/` remains the default and x-default version.',
+    status: 'live',
+  },
+  {
+    path: routes.plUndetected,
+    primary: 'status wykrywalności',
+    intent:
+      'Polish operational status page. Pair of `/undetected/`; does not replace the English status URL.',
+    status: 'live',
+  },
+  {
+    path: routes.deHome,
+    primary: 'Cheats für War Thunder',
+    intent:
+      'German commercial homepage. English `/` remains the default and x-default version.',
+    status: 'live',
+  },
+  {
+    path: routes.deUndetected,
+    primary: 'Status unerkannt',
+    intent:
+      'German operational status page. Pair of `/undetected/`; does not replace the English status URL.',
+    status: 'live',
+  },
 ] as const satisfies readonly KeywordOwner[];
 
 export function ownerForPath(path: string): KeywordOwner | undefined {

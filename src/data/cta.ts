@@ -11,4 +11,8 @@ export const cta = {
   secondaryLabel: 'View Plans',
   hePrimaryLabel: 'קנו עכשיו',
   heSecondaryLabel: "צפו בפיצ'רים",
+  plPrimaryLabel: 'Kup teraz',
+  plSecondaryLabel: 'Zobacz funkcje',
+  dePrimaryLabel: 'Jetzt kaufen',
+  deSecondaryLabel: 'Funktionen ansehen',
 } as const;

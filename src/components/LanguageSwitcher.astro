@@ -4,6 +4,8 @@ import { localeFromPath, switcherHref } from '../i18n/locale';
 const locale = localeFromPath(Astro.url.pathname);
 const enHref = switcherHref(Astro.url.pathname, 'en');
 const heHref = switcherHref(Astro.url.pathname, 'he');
+const plHref = switcherHref(Astro.url.pathname, 'pl');
+const deHref = switcherHref(Astro.url.pathname, 'de');
 ---
 
 <nav class="lang-switch" dir="ltr" aria-label="Language">
@@ -19,6 +21,20 @@ const heHref = switcherHref(Astro.url.pathname, 'he');
     hreflang="he-IL"
     lang="he"
     aria-current={locale === 'he' ? 'page' : undefined}>עברית</a
+  >
+  <span class="lang-switch__sep" aria-hidden="true">|</span>
+  <a
+    href={plHref}
+    hreflang="pl"
+    lang="pl"
+    aria-current={locale === 'pl' ? 'page' : undefined}>Polski</a
+  >
+  <span class="lang-switch__sep" aria-hidden="true">|</span>
+  <a
+    href={deHref}
+    hreflang="de"
+    lang="de"
+    aria-current={locale === 'de' ? 'page' : undefined}>Deutsch</a
   >
 </nav>
 

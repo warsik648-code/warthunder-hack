@@ -1,0 +1,212 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import CtaLink from '../../../components/CtaLink.astro';
+import UpdatedAsOf from '../../../components/UpdatedAsOf.astro';
+import {
+  currentStatusDe,
+  statusChromeDe,
+  statusNotesDe,
+  statusPageDe,
+  statusRulesDe,
+  statusSeoDe,
+} from '../../../data/de/status';
+import { routes } from '../../../data/navigation';
+import { site } from '../../../data/site';
+
+export const prerender = true;
+
+const breadcrumbs = [
+  { name: 'Startseite', path: routes.deHome },
+  { name: 'Status unerkannt', path: routes.deUndetected },
+];
+---
+
+<BaseLayout
+  seo={{
+    title: statusSeoDe.title,
+    description: statusSeoDe.description,
+    canonicalPath: routes.deUndetected,
+  }}
+  breadcrumbs={breadcrumbs}
+>
+  <section class="band" id="status" aria-labelledby="status-heading">
+    <div class="container status-hero">
+      <p class="eyebrow">{statusChromeDe.liveEyebrow}</p>
+      <h1 id="status-heading">{statusPageDe.h1}</h1>
+      <p class="lede">{statusPageDe.lede}</p>
+
+      <div class="status-board surface" role="status">
+        <p class:list={['status-pill', `status-pill--${currentStatusDe.state}`]}>
+          <span class="status-pill__dot" aria-hidden="true"></span>
+          <span>{statusChromeDe.statusPrefix} {currentStatusDe.label}</span>
+        </p>
+        <p class="status-play">{currentStatusDe.playLine}</p>
+        <UpdatedAsOf locale="de" />
+      </div>
+    </div>
+  </section>
+
+  <section class="band band--raised" id="notes" aria-labelledby="notes-heading">
+    <div class="container split">
+      <div>
+        <p class="eyebrow">{statusChromeDe.notesEyebrow}</p>
+        <h2 id="notes-heading">{statusChromeDe.notesHeading}</h2>
+      </div>
+      <div class="note-stack">
+        {
+          statusNotesDe.map((note) => (
+            <article class="surface card">
+              <h3>{note.title}</h3>
+              <p>{note.body}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="band" id="rules" aria-labelledby="rules-heading">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">{statusChromeDe.rulesEyebrow}</p>
+        <h2 id="rules-heading">{statusChromeDe.rulesHeading}</h2>
+      </div>
+      <ol class="rule-list">
+        {
+          statusRulesDe.map((rule) => (
+            <li class="surface card">{rule}</li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <section class="band close" aria-labelledby="status-close-heading">
+    <div class="container surface close-card">
+      <p class="eyebrow">{site.product.claims.join(' · ')}</p>
+      <h2 id="status-close-heading">{statusChromeDe.closeHeading}</h2>
+      <p>{statusChromeDe.closeCopy}</p>
+      <CtaLink />
+      <CtaLink variant="secondary" label={statusChromeDe.supportLabel} />
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .status-hero h1 {
+    margin-top: var(--space-3);
+    font-size: var(--text-3xl);
+    max-width: 18ch;
+  }
+
+  .lede,
+  .status-play,
+  .card p {
+    color: var(--color-text-muted);
+  }
+
+  .lede {
+    margin-top: var(--space-4);
+    max-width: 40rem;
+    font-size: var(--text-lg);
+  }
+
+  .status-board {
+    display: grid;
+    gap: var(--space-4);
+    margin-top: var(--space-6);
+    padding: var(--space-5);
+    max-width: 36rem;
+  }
+
+  .status-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    width: fit-content;
+    margin: 0;
+    padding: var(--space-1) var(--space-3);
+    border-radius: var(--radius-full);
+    font-size: var(--text-sm);
+    font-weight: var(--weight-semibold);
+  }
+
+  .status-pill__dot {
+    width: 0.55rem;
+    height: 0.55rem;
+    border-radius: var(--radius-full);
+    background: currentColor;
+  }
+
+  .status-pill--green {
+    color: #8ee0b0;
+    background: rgba(61, 191, 122, 0.12);
+    border: 1px solid rgba(61, 191, 122, 0.35);
+  }
+
+  .status-pill--rebuilding {
+    color: var(--color-accent);
+    background: rgba(196, 178, 140, 0.1);
+    border: 1px solid var(--color-border-strong);
+  }
+
+  .section-head {
+    max-width: 42rem;
+    margin-bottom: var(--space-6);
+  }
+
+  .section-head h2,
+  .split h2,
+  .close-card h2 {
+    margin-top: var(--space-3);
+    font-size: var(--text-2xl);
+  }
+
+  .split {
+    display: grid;
+    gap: var(--space-5);
+  }
+
+  .note-stack,
+  .rule-list {
+    display: grid;
+    gap: var(--space-4);
+    list-style: none;
+  }
+
+  .card h3 {
+    margin-bottom: var(--space-3);
+    font-size: var(--text-lg);
+  }
+
+  .close {
+    padding-bottom: var(--space-8);
+    background: var(--color-bg-lower);
+  }
+
+  .close-card {
+    padding: var(--space-6);
+  }
+
+  .close-card p {
+    margin: var(--space-4) 0 var(--space-5);
+    max-width: 36rem;
+    color: var(--color-text-muted);
+  }
+
+  .close-card a + a {
+    margin-inline-start: var(--space-3);
+  }
+
+  @media (min-width: 48rem) {
+    .split {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
+      gap: var(--space-7);
+      align-items: start;
+    }
+
+    .rule-list {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+</style>

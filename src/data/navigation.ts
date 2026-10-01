@@ -1,3 +1,4 @@
+import type { Locale } from '../i18n/locale';
 import { en } from './he/en';
 
 export type RouteStatus = 'live' | 'planned';
@@ -23,6 +24,10 @@ export const routes = {
   undetected: '/undetected/',
   heHome: '/he/',
   heUndetected: '/he/undetected/',
+  plHome: '/pl/',
+  plUndetected: '/pl/undetected/',
+  deHome: '/de/',
+  deUndetected: '/de/undetected/',
   pricing: '/pricing/',
   reviews: '/reviews/',
   faq: '/faq/',
@@ -55,6 +60,33 @@ export const headerNavHe: NavItem[] = [
   { label: 'סטטוס', href: routes.heUndetected, status: 'live' },
   { label: 'שאלות', href: `${routes.heHome}#faq`, status: 'live' },
 ];
+
+export const headerNavPl: NavItem[] = [
+  { label: 'Strona główna', href: routes.plHome, status: 'live' },
+  { label: 'Funkcje', href: `${routes.plHome}#features`, status: 'live' },
+  { label: 'Jak zacząć', href: `${routes.plHome}#start`, status: 'live' },
+  { label: 'Status', href: routes.plUndetected, status: 'live' },
+  { label: 'FAQ', href: `${routes.plHome}#faq`, status: 'live' },
+];
+
+export const headerNavDe: NavItem[] = [
+  { label: 'Startseite', href: routes.deHome, status: 'live' },
+  { label: 'Funktionen', href: `${routes.deHome}#features`, status: 'live' },
+  { label: 'Erste Schritte', href: `${routes.deHome}#start`, status: 'live' },
+  { label: 'Status', href: routes.deUndetected, status: 'live' },
+  { label: 'FAQ', href: `${routes.deHome}#faq`, status: 'live' },
+];
+
+const headerNavByLocale = {
+  en: headerNav,
+  he: headerNavHe,
+  pl: headerNavPl,
+  de: headerNavDe,
+} as const;
+
+export function headerNavFor(locale: Locale): readonly NavItem[] {
+  return headerNavByLocale[locale];
+}
 
 export const footerNav = {
   product: [
@@ -102,6 +134,55 @@ export const footerNavHe = {
   ] satisfies NavItem[],
   legal: [] satisfies NavItem[],
 };
+
+export const footerNavPl = {
+  product: [
+    { label: 'Cheaty do War Thunder', href: routes.plHome, status: 'live' },
+  ] satisfies NavItem[],
+  features: [
+    { label: 'ESP', href: `${routes.plHome}#esp`, status: 'live' },
+    { label: 'Aimbot', href: `${routes.plHome}#aimbot`, status: 'live' },
+    { label: 'Radar', href: `${routes.plHome}#radar`, status: 'live' },
+    { label: 'Wallhack', href: `${routes.plHome}#features`, status: 'live' },
+  ] satisfies NavItem[],
+  resources: [
+    { label: 'Jak zacząć', href: `${routes.plHome}#start`, status: 'live' },
+    { label: 'Zgodność', href: `${routes.plHome}#compatibility`, status: 'live' },
+    { label: 'FAQ', href: `${routes.plHome}#faq`, status: 'live' },
+    { label: 'Status wykrywalności', href: routes.plUndetected, status: 'live' },
+  ] satisfies NavItem[],
+  legal: [] satisfies NavItem[],
+};
+
+export const footerNavDe = {
+  product: [
+    { label: 'Cheats für War Thunder', href: routes.deHome, status: 'live' },
+  ] satisfies NavItem[],
+  features: [
+    { label: 'ESP', href: `${routes.deHome}#esp`, status: 'live' },
+    { label: 'Aimbot', href: `${routes.deHome}#aimbot`, status: 'live' },
+    { label: 'Radar', href: `${routes.deHome}#radar`, status: 'live' },
+    { label: 'Wallhack', href: `${routes.deHome}#features`, status: 'live' },
+  ] satisfies NavItem[],
+  resources: [
+    { label: 'Erste Schritte', href: `${routes.deHome}#start`, status: 'live' },
+    { label: 'Kompatibilität', href: `${routes.deHome}#compatibility`, status: 'live' },
+    { label: 'FAQ', href: `${routes.deHome}#faq`, status: 'live' },
+    { label: 'Status unerkannt', href: routes.deUndetected, status: 'live' },
+  ] satisfies NavItem[],
+  legal: [] satisfies NavItem[],
+};
+
+const footerNavByLocale = {
+  en: footerNav,
+  he: footerNavHe,
+  pl: footerNavPl,
+  de: footerNavDe,
+} as const;
+
+export function footerNavFor(locale: Locale): (typeof footerNavByLocale)[Locale] {
+  return footerNavByLocale[locale];
+}
 
 export function liveItems(items: readonly NavItem[]): NavItem[] {
   return items.filter((item) => item.status === 'live');

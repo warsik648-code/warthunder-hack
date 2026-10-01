@@ -1,13 +1,13 @@
 ---
 import { site } from '../data/site';
-import { footerNav, footerNavHe, liveItems } from '../data/navigation';
+import { footerNavFor, liveItems } from '../data/navigation';
 import { localeFromPath } from '../i18n/locale';
 import { ui } from '../i18n/ui';
 import SiteBrand from './SiteBrand.astro';
 
 const locale = localeFromPath(Astro.url.pathname);
 const copy = ui[locale];
-const nav = locale === 'he' ? footerNavHe : footerNav;
+const nav = footerNavFor(locale);
 
 const groups = [
   { title: copy.footerGroups.product, items: liveItems(nav.product) },
